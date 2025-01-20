@@ -1,0 +1,38 @@
+/**
+ * @param {number[][]} mat
+ * @param {number} k
+ * @return {number[]}
+ */
+var kWeakestRows = function (mat, k) {
+  const rowStrengths = [];
+
+  mat.forEach((r) => {
+    rowStrengths.push(r.reduce((acc, curr) => (acc += curr), 0));
+  });
+
+  /** @type {number[]} */
+  const weakestRows = [];
+
+  let weakestPower = 0;
+
+  while (weakestRows.length < k) {
+    rowStrengths.forEach((rs, i) => {
+      if (rs === weakestPower) weakestRows.push(i);
+    });
+
+    weakestPower++;
+  }
+
+  return weakestRows.slice(0,k);
+};
+
+const ans = kWeakestRows(
+  [
+    [1, 1, 0, 0, 0],
+    [1, 1, 1, 1, 0],
+    [1, 0, 0, 0, 0],
+    [1, 1, 0, 0, 0],
+    [1, 1, 1, 1, 1],
+  ],
+  3
+);
